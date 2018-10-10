@@ -22,7 +22,7 @@ pod 'DDWebView'
 
 ## Author
 
-ztemap, 592110272@qq.com
+duanchanghe, 592110272@qq.com
 
 ## License
 

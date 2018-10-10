@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A6F0F9F1BC9BD72DA0DC7EFBCE7D22E /* ReplaceMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A41552FCA02A3E5A28504A60B1ECBF /* ReplaceMe.swift */; };
 		2C856191681E92FBCE54F537439A0AEA /* Pods-DDWebView_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 65065048BDD1FE3DC66FB3EA00B1EB65 /* Pods-DDWebView_Example-dummy.m */; };
 		4D62C17F086089AF98B26E0A146FA1B3 /* DDWebView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 43DDACBB41F059B38D61E97A438ED5C9 /* DDWebView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		598402D0DC46073E98205B4573915A60 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
+		73819FB5216D989600ED35E1 /* DDWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73819FB4216D989600ED35E1 /* DDWebView.swift */; };
 		9FE90B22A1371CEB129E435679CB95DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
 		AAE84FA0FED78FEAC8C92D6A3EC30515 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
 		C6CB5CE525B7C55710FB112023D10D86 /* DDWebView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D5867800938850FC5621F804680E9E7C /* DDWebView-dummy.m */; };
@@ -49,12 +49,12 @@
 		49DD07A765E7812B115B14C9439E6587 /* Pods-DDWebView_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DDWebView_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		59141A0AE28CF88F65181094DB2D707B /* Pods-DDWebView_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-DDWebView_Tests-umbrella.h"; sourceTree = "<group>"; };
 		5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		64A41552FCA02A3E5A28504A60B1ECBF /* ReplaceMe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReplaceMe.swift; path = DDWebView/Classes/ReplaceMe.swift; sourceTree = "<group>"; };
 		65065048BDD1FE3DC66FB3EA00B1EB65 /* Pods-DDWebView_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-DDWebView_Example-dummy.m"; sourceTree = "<group>"; };
 		67221FF98CA3A3303209E8E3E1E578C3 /* Pods-DDWebView_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-DDWebView_Example-Info.plist"; sourceTree = "<group>"; };
 		69FA74DCF31EE13694CC32A57522798A /* Pods-DDWebView_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-DDWebView_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		6CE74EF685D5E2C4C96F7CCA6A80B15F /* DDWebView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DDWebView-prefix.pch"; sourceTree = "<group>"; };
 		6DEF96EB12CEF031DD1122D7F82A1619 /* DDWebView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DDWebView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		73819FB4216D989600ED35E1 /* DDWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DDWebView.swift; path = DDWebView/Classes/DDWebView.swift; sourceTree = "<group>"; };
 		7506C076617C89B1114855C7EDF6D5CD /* DDWebView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = DDWebView.modulemap; sourceTree = "<group>"; };
 		806167764D40176F67BD492454B4A944 /* DDWebView.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = DDWebView.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		88D9DE62617C5EE12118ED6246F3C54F /* Pods-DDWebView_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-DDWebView_Example-umbrella.h"; sourceTree = "<group>"; };
@@ -120,7 +120,7 @@
 		75B817462C1D635FBED6BD438595214F /* DDWebView */ = {
 			isa = PBXGroup;
 			children = (
-				64A41552FCA02A3E5A28504A60B1ECBF /* ReplaceMe.swift */,
+				73819FB4216D989600ED35E1 /* DDWebView.swift */,
 				DFF00079B21D5FA832AEF7E87F779F86 /* Pod */,
 				D0C83907469390E94D41237F18DC89A1 /* Support Files */,
 			);
@@ -385,8 +385,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73819FB5216D989600ED35E1 /* DDWebView.swift in Sources */,
 				C6CB5CE525B7C55710FB112023D10D86 /* DDWebView-dummy.m in Sources */,
-				1A6F0F9F1BC9BD72DA0DC7EFBCE7D22E /* ReplaceMe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
