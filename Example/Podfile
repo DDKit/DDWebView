@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'DDWebView_Example' do
+  pod 'DDWebView', :path => '../'
+
+  target 'DDWebView_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

@@ -1,0 +1,6 @@
+framework module Pods_DDWebView_Example {
+  umbrella header "Pods-DDWebView_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

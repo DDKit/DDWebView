@@ -1,0 +1,6 @@
+framework module DDWebView {
+  umbrella header "DDWebView-umbrella.h"
+
+  export *
+  module * { export * }
+}

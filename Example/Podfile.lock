@@ -1,0 +1,16 @@
+PODS:
+  - DDWebView (0.1.0)
+
+DEPENDENCIES:
+  - DDWebView (from `../`)
+
+EXTERNAL SOURCES:
+  DDWebView:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  DDWebView: 9ff50f3e4bf891048996b768aec7ae155bd0cfcf
+
+PODFILE CHECKSUM: 5827d8e2a6e133f82064080ee4a3e23061940ffe
+
+COCOAPODS: 1.6.0.beta.1
