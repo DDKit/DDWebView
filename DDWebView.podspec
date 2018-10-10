@@ -45,6 +45,6 @@ DESC
   # s.dependency 'AFNetworking', '~> 2.3'
   s.dependency 'RxSwift'
   s.dependency 'RxCocoa'
-  s.dependency 'MBProgress'
+  s.dependency 'MBProgressHUD'
 
 end
