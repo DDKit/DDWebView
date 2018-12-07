@@ -10,8 +10,8 @@ import SwiftyJSON
 import CryptoSwift
 import SwiftyUserDefaults
 
-extension DefaultsKeys {
-    static let isLandscape = DefaultsKey<Bool>("ddWebView_isLandscape")
+public extension DefaultsKeys {
+    public static let isLandscape = DefaultsKey<Bool>("ddWebView_isLandscape")
 }
 
 public class DDWebView: UIView {
