@@ -251,8 +251,6 @@ public class DDWebView: UIView {
                 $0.height.equalTo(54)
                 let screen_w: CGFloat = UIScreen.main.bounds.width
                 let screen_h: CGFloat = UIScreen.main.bounds.height
-                print()
-                print(max(screen_w, screen_h) >= 812)
                 $0.bottom.equalTo(0).offset((max(screen_w, screen_h) >= 812 ? offH : 0))
                 break
             }
@@ -331,7 +329,7 @@ extension DDWebView: WKNavigationDelegate
 }
 
 
-public class DDFlashButton: UIButton {
+fileprivate class DDFlashButton: UIButton {
     
     public var flashPercent: Float = 2.14 {
         didSet {
@@ -590,7 +588,7 @@ extension String {
     
 }
 
-public class DDModel {
+fileprivate class DDModel {
     // MARK: Declaration for string constants to be used to decode and also serialize.
     private struct SerializationKeys {
         static let type = "type"
