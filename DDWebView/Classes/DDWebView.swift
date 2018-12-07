@@ -6,10 +6,13 @@ import RxAtomic
 import RxCocoa
 import RxSwift
 import Hue
-import DeviceKit
 import SwiftyJSON
 import CryptoSwift
-import Alamofire
+import SwiftyUserDefaults
+
+extension DefaultsKeys {
+    static let isLandscape = DefaultsKey<Bool>("ddWebView_isLandscape")
+}
 
 public class DDWebView: UIView {
     
@@ -25,12 +28,21 @@ public class DDWebView: UIView {
         }
     }
     
-    public var screenToLandscapeAction: ((_ :Bool)->Void)?
-    
     public var presentAction: ((_ : UIViewController)->Void)?
     
+    public func screen(toLandscape: Bool) {
+        Defaults[.isLandscape] = toLandscape
+        if toLandscape {
+            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+            UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
+        } else {
+            UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
+            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+        }
+    }
+    
     private var offH: CGFloat = 0
-
+    
     private var shareUrl: String = ""
     
     public var dataStr: String = "" {
@@ -53,6 +65,7 @@ public class DDWebView: UIView {
             shareBtn.flashBackgroundColor = UIColor(hex: (model.themeHex ?? "dddddd"))
             if model.url != nil && model.url!.count > 0  {
                 webView.load(URLRequest(url: URL(string: model.url!)!))
+                layoutUI()
             }
         }
     }
@@ -73,7 +86,7 @@ public class DDWebView: UIView {
         let script: WKUserScript = WKUserScript(source: javascript, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         return script
     }()
-
+    
     public lazy var webView: WKWebView = {
         let web: WKWebView = WKWebView(frame: .zero, configuration: config)
         web.configuration.userContentController.addUserScript(userScript)
@@ -103,7 +116,7 @@ public class DDWebView: UIView {
     private var homeBtn: DDFlashButton = DDFlashButton(type: .custom)
     
     private var backBtn: DDFlashButton = DDFlashButton(type: .custom)
-
+    
     private var forwardBtn: DDFlashButton = DDFlashButton(type: .custom)
     
     private var refreshBtn: DDFlashButton = DDFlashButton(type: .custom)
@@ -140,23 +153,23 @@ public class DDWebView: UIView {
             if m.url != nil && m.url!.count > 0  {
                 self!.webView.load(URLRequest(url: URL(string: m.url!)!))
             }
-        }.disposed(by: bag)
+            }.disposed(by: bag)
         
         backBtn.rx.controlEvent(.touchUpInside).bind { [weak self] in
             self!.webView.goBack()
-        }.disposed(by: bag)
+            }.disposed(by: bag)
         
         forwardBtn.rx.controlEvent(.touchUpInside).bind { [weak self] in
             self!.webView.goForward()
-        }.disposed(by: bag)
+            }.disposed(by: bag)
         
         refreshBtn.rx.controlEvent(.touchUpInside).bind { [weak self] in
             self!.webView.reloadFromOrigin()
-        }.disposed(by: bag)
+            }.disposed(by: bag)
         
         shareBtn.rx.controlEvent(.touchUpInside).bind { [weak self] in
             self!.share()
-        }.disposed(by: bag)
+            }.disposed(by: bag)
         
         webView.rx.observeWeakly(Double.self, "estimatedProgress").bind { [weak self] (e) in
             let progress = self!.progressView
@@ -172,19 +185,19 @@ public class DDWebView: UIView {
             } else {
                 progress.alpha = 1.0
             }
-        }.disposed(by: bag)
+            }.disposed(by: bag)
         
         webView.rx.observeWeakly(Bool.self, "canGoBack").bind { [weak self] (e) in
             self!.backBtn.isEnabled = e!
-        }.disposed(by: bag)
+            }.disposed(by: bag)
         
         webView.rx.observeWeakly(Bool.self, "canGoForward").bind { [weak self] (e) in
             self!.forwardBtn.isEnabled = e!
-        }.disposed(by: bag)
+            }.disposed(by: bag)
         
         UIDevice.current.rx.observeWeakly(UIDeviceOrientation.self, "orientation").bind { [weak self] (_) in
             self!.layoutUI()
-        }.disposed(by: bag)
+            }.disposed(by: bag)
     }
     
     // 分享
@@ -235,7 +248,11 @@ public class DDWebView: UIView {
                 break
             default:
                 $0.height.equalTo(54)
-                $0.bottom.equalTo(offH)
+                let screen_w: CGFloat = UIScreen.main.bounds.width
+                let screen_h: CGFloat = UIScreen.main.bounds.height
+                print()
+                print(max(screen_w, screen_h) >= 812)
+                $0.bottom.equalTo(0).offset((max(screen_w, screen_h) >= 812 ? offH : 0))
                 break
             }
         }
@@ -272,7 +289,7 @@ extension DDWebView: WKUIDelegate
             shareUrl = message.components(separatedBy: "share:").last ?? ""
             share()
         } else if message == "退出棋牌游戏" {
-            screenToLandscapeAction?(false)
+            screen(toLandscape: false)
         }
         alert(message)
         completionHandler()
@@ -290,7 +307,7 @@ extension DDWebView: WKNavigationDelegate
         }
         
         if url.contains("joinGamePlay") {
-            screenToLandscapeAction?(true)
+            screen(toLandscape: true)
             decisionHandler(.allow)
             return
         }
@@ -491,7 +508,8 @@ public class DDFlashButton: UIButton {
 
 
 extension String {
-    func loadModel() -> DDModel {
+    
+    fileprivate func loadModel() -> DDModel {
         var str = self
         // 去除等号
         str = str.replacingOccurrences(of: "=", with: "")
@@ -520,7 +538,21 @@ extension String {
         return DDModel(object: str.data(using: .utf8) ?? Data())
     }
     
-    func decode_AES_ECB(key:String)->String {
+    //endcode
+    public func endcode_AES_ECB(key:String)->String {
+        var encodeString = ""
+        do{
+            let aes = try AES(key: Padding.zeroPadding.add(to: key.bytes, blockSize: AES.blockSize),blockMode: ECB())
+            let encoded = try aes.encrypt(bytes)
+            encodeString = encoded.toBase64()!
+        }catch{
+            print(error.localizedDescription)
+        }
+        return encodeString
+    }
+    
+    //decode
+    public func decode_AES_ECB(key:String)->String {
         var decodeStr = ""
         let data = NSData(base64Encoded: self, options: NSData.Base64DecodingOptions.init(rawValue: 0))
         var encrypted: [UInt8] = []
@@ -540,7 +572,21 @@ extension String {
         }
         return decodeStr
     }
-
+    
+    // 强制旋转屏幕为横屏 或竖屏
+    public func screen(toLandscape: Bool)
+    {
+        Defaults[.isLandscape] = toLandscape
+        if toLandscape {
+            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+            UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
+        } else {
+            UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
+            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+        }
+    }
+    
+    
 }
 
 public class DDModel {
