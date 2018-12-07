@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'DDWebView'
-  s.version          = '1.0.2'
+  s.version          = '1.0.3'
   s.summary          = '简单描述一下 DDWebView 的用途:就是用来测试搭建开源三方库的!'
 
 # This description is used to generate tags and improve search results.
