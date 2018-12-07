@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'DDWebView'
-  s.version          = '0.1.2'
+  s.version          = '1.0.1'
   s.summary          = '简单描述一下 DDWebView 的用途:就是用来测试搭建开源三方库的!'
 
 # This description is used to generate tags and improve search results.
@@ -31,7 +31,7 @@ DESC
   s.source           = { :git => 'https://github.com/DDKit/DDWebView.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
 
   s.source_files = 'DDWebView/Classes/**/*'
   s.swift_version = '4.2'
